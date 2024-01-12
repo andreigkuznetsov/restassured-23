@@ -4,15 +4,19 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class CrudTests {
+public class ApiTests {
 
     String baseUrl = "https://reqres.in/api";
+    String name = "Dima";
+    String jobTitle = "QA";
+    String newJobTitle = "AQA";
 
     @Test
     void createUserTest() {
-        String userData = "{\"name\": \"morpheus\",\"job\": \"leader\"}";
+        String userData = "{\"name\": \"" + name + "\",\"job\": \"" + jobTitle + "\"}";
 
-        given().body(userData)
+        given()
+                .body(userData)
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
@@ -21,17 +25,18 @@ public class CrudTests {
                 .log().status()
                 .log().body()
                 .statusCode(201)
-                .body("name", is("morpheus"))
-                .body("job", is("leader"))
+                .body("name", is(name))
+                .body("job", is(jobTitle))
                 .body("id", is(notNullValue()))
                 .body("createdAt", is(notNullValue()));
     }
 
     @Test
     void updateUserTest() {
-        String updateUserData = "{\"name\": \"morpheus\",\"job\": \"zion resident\"}";
+        String updateUserData = "{\"name\": \"" + name + "\",\"job\": \"" + newJobTitle + "\"}";
 
-        given().body(updateUserData)
+        given()
+                .body(updateUserData)
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
@@ -40,8 +45,8 @@ public class CrudTests {
                 .log().status()
                 .log().body()
                 .statusCode(200)
-                .body("name", is("morpheus"))
-                .body("job", is("zion resident"));
+                .body("name", is(name))
+                .body("job", is(newJobTitle));
     }
 
     @Test
@@ -49,7 +54,8 @@ public class CrudTests {
 
         String userData = "{\"email\": \"eve.holt@reqres.in\",\"password\": \"pistol\"}";
 
-        given().body(userData)
+        given()
+                .body(userData)
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
@@ -67,7 +73,8 @@ public class CrudTests {
 
         String userData = "{\"email\": \"sydney@fife\"}";
 
-        given().body(userData)
+        given()
+                .body(userData)
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
@@ -82,7 +89,7 @@ public class CrudTests {
     @Test
     void deleteUserTest() {
 
-        given().when()
+        given()
                 .delete(baseUrl + "/users/2")
                 .then()
                 .log().status()
