@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class ApiTests {
+public class ApiTests extends TestBase {
 
-    String baseUrl = "https://reqres.in/api";
+    //String baseUrl = "https://reqres.in/api";
     String name = "Dima";
     String jobTitle = "QA";
     String newJobTitle = "AQA";
@@ -20,7 +20,7 @@ public class ApiTests {
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
-                .post(baseUrl + "/users")
+                .post("/users")
                 .then()
                 .log().status()
                 .log().body()
@@ -40,7 +40,7 @@ public class ApiTests {
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
-                .put(baseUrl + "/users/2")
+                .put("/users/2")
                 .then()
                 .log().status()
                 .log().body()
@@ -59,7 +59,7 @@ public class ApiTests {
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
-                .post(baseUrl + "/register")
+                .post("/register")
                 .then()
                 .log().status()
                 .log().body()
@@ -78,7 +78,7 @@ public class ApiTests {
                 .contentType(ContentType.JSON)
                 .log().body()
                 .when()
-                .post(baseUrl + "/register")
+                .post("/register")
                 .then()
                 .log().status()
                 .log().body()
@@ -90,7 +90,7 @@ public class ApiTests {
     void deleteUserTest() {
 
         given()
-                .delete(baseUrl + "/users/2")
+                .delete("/users/2")
                 .then()
                 .log().status()
                 .log().body()
